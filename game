@@ -37,8 +37,7 @@ def draw_tile():
 
 # Check if a word is valid
 def is_valid_word(word):
-    #implement TWL06 api
-    return len(word) >= 4  # Simulating a valid word check
+    return len(word) >= 4 and twl.check(word)
 
 # Function to take a turn
 def take_turn():
@@ -49,8 +48,6 @@ def take_turn():
     else:
         print("No more tiles to draw.")
 
-    # Example of player attempting to form a word
-    print("Current center tiles:", center_tiles)
     word = input("Enter a word you want to form: ").strip()
     if form_word(word):
         print(f"Current player's word list: {player_word_list}")
@@ -60,9 +57,7 @@ def take_turn():
 # Start the game by drawing the initial 3 tiles
 start_game()
 
-# Example of taking a turn
-take_turn()
-
-# Display the center tiles and remaining tiles
-print("Center tiles after the turn:", center_tiles)
-print(f"Player's word list: {player_word_list}")
+while(tiles):
+    take_turn()
+    print("Center tiles after the turn:", center_tiles)
+    print(f"Player's word list: {player_word_list}")
