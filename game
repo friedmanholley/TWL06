@@ -1,1 +1,68 @@
+import random
+import requests
 
+# Define the letter distribution
+letter_distribution = {
+    'J': 2, 'K': 2, 'Q': 2, 'X': 2, 'Z': 2,
+    'B': 3, 'C': 3, 'F': 3, 'H': 3, 'M': 3, 
+    'P': 3, 'V': 3, 'W': 3, 'Y': 3,
+    'G': 4, 'L': 5, 
+    'D': 6, 'S': 6, 'U': 6, 
+    'N': 8, 
+    'T': 9, 'R': 9, 
+    'O': 11, 
+    'I': 12, 
+    'A': 13, 
+    'E': 18
+}
+
+# Create a list of tiles based on the distribution
+tiles = []
+center_tiles = []
+player_word_list = []
+
+for letter, count in letter_distribution.items():
+    tiles.extend([letter] * count)
+
+# Shuffle the tiles randomly
+random.shuffle(tiles)
+
+# Function to draw a tile
+def draw_tile():
+    if tiles:
+        return tiles.pop()
+    else:
+        return None
+
+# Check if a word is valid
+def is_valid_word(word):
+    #implement TWL06 api
+    return len(word) >= 4  # Simulating a valid word check
+
+# Function to take a turn
+def take_turn():
+    new_tile = draw_tile()
+    if new_tile:
+        center_tiles.append(new_tile)
+        print(f"New tile '{new_tile}' added to center tiles: {center_tiles}")
+    else:
+        print("No more tiles to draw.")
+
+    # Example of player attempting to form a word
+    print("Current center tiles:", center_tiles)
+    word = input("Enter a word you want to form: ").strip()
+    if form_word(word):
+        print(f"Current player's word list: {player_word_list}")
+    else:
+        print("Try again.")
+
+# Start the game by drawing the initial 3 tiles
+start_game()
+
+# Example of taking a turn
+take_turn()
+
+# Display the center tiles and remaining tiles
+print("Center tiles after the turn:", center_tiles)
+print(f"Remaining tiles ({len(tiles)}): {tiles}")
+print(f"Player's word list: {player_word_list}")
