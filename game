@@ -1,5 +1,6 @@
 import random
 import requests
+import TWL06
 
 # Define the letter distribution
 letter_distribution = {
@@ -64,5 +65,4 @@ take_turn()
 
 # Display the center tiles and remaining tiles
 print("Center tiles after the turn:", center_tiles)
-print(f"Remaining tiles ({len(tiles)}): {tiles}")
 print(f"Player's word list: {player_word_list}")
