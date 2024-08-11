@@ -1,6 +1,10 @@
 import random
-import requests
 import TWL06
+from player import Player
+
+if __name__ == "__main__":
+    player = Player(name=input("What's your name?"))
+    take_turn(player)
 
 # Define the letter distribution
 letter_distribution = {
@@ -20,7 +24,6 @@ letter_distribution = {
 # Create a list of tiles based on the distribution
 tiles = []
 center_tiles = []
-player_word_list = []
 
 for letter, count in letter_distribution.items():
     tiles.extend([letter] * count)
@@ -54,7 +57,7 @@ def is_valid_word(word):
         return False
 
 # Function to take a turn
-def take_turn():
+def take_turn(player):
     new_tile = draw_tile()
     if new_tile:
         center_tiles.append(new_tile)
@@ -65,10 +68,10 @@ def take_turn():
     if word == '':
         return
     if is_valid_word(word):
-        player_word_list.append(word)
+        player.add_word(word)
         for c in word:
             center_tiles.remove(c)
-        print(f"{word} added to player's word list: {player_word_list}")
+        print(f"{word} added to player's word list: {player.get_word_list()}")
     else:
         print("Try again.")
 
@@ -82,4 +85,4 @@ start_game()
 while(tiles):
     take_turn()
     print("Center tiles after the turn:", center_tiles)
-    print(f"Player's word list: {player_word_list}")
+    print(f"Player's word list: {player.get_word_list()}")
