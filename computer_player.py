@@ -7,7 +7,7 @@ from TWL06 import twl
 
 
 class ComputerPlayer(Player):
-    def __init__(self, name):
+    def __init__(self):
         super().__init__("Computer")
         #come back to implement leveling?
     

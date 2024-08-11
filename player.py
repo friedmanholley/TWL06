@@ -4,9 +4,19 @@ class Player:
     def __init__(self,name):
         self.name = name
         self.word_list = []
+        self.score = 0
+        
+    #calculates the points a word is worth: word length - 3
+    def word_score(word):
+        return(len(word)-3)
         
     def add_word(self, word):
         self.word_list.append(word)
+        self.score += self.word_score(word)
+        
+    def remove_word(self, word):
+        self.word_list.remove(word)
+        self.score -= self.word_score(word)
         
     def get_word_list(self):
         return self.word_list
