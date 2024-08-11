@@ -1,27 +1,7 @@
 
-from TWL06 import twl
 from player import Player
 from computer_player import ComputerPlayer
 from tiles import Tiles
-
-
-# Check if a word is valid
-def is_valid_word(word):
-    temp_center = center_tiles.copy()
-    for c in word:
-        if c in temp_center:
-            temp_center.remove(c)
-        else:
-            print(f"\nThere are not enough copies of '{c}' to form '{word}.'")
-            return False
-    if len(word) >= 4:
-        if twl.check(word.lower()):
-            return True
-        else:
-            print(f"\nThe word '{word}' is not in our dictionary. Sorry!")
-    else:
-        print(f"\nThe word '{word}' is too short. It must be at least 4 characters long.")
-        return False
 
 def turn():
     new_tile = tiles.draw_tile()
