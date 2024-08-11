@@ -1,10 +1,6 @@
 import random
-import TWL06
+from TWL06 import twl
 from player import Player
-
-if __name__ == "__main__":
-    player = Player(name=input("What's your name?"))
-    take_turn(player)
 
 # Define the letter distribution
 letter_distribution = {
@@ -45,15 +41,15 @@ def is_valid_word(word):
         if c in temp_center:
             temp_center.remove(c)
         else:
-            print(f"There are not enough copies of '{c}' to form '{word}.'")
+            print(f"\nThere are not enough copies of '{c}' to form '{word}.'")
             return False
     if len(word) >= 4:
-        if TWL06.check(word):
+        if twl.check(word.lower()):
             return True
         else:
-            print(f"The word '{word}' is not in our dictionary. Sorry!")
+            print(f"\nThe word '{word}' is not in our dictionary. Sorry!")
     else:
-        print(f"The word '{word}' is too short. It must be at least 4 characters long.")
+        print(f"\nThe word '{word}' is too short. It must be at least 4 characters long.")
         return False
 
 # Function to take a turn
@@ -61,28 +57,28 @@ def take_turn(player):
     new_tile = draw_tile()
     if new_tile:
         center_tiles.append(new_tile)
-        print(f"New tile '{new_tile}' added to center tiles: {center_tiles}")
+        print(f"\nNew tile '{new_tile}' added to center tiles: {center_tiles}")
     else:
         print("No more tiles to draw.")
-    word = input("Enter a word you want to form, or press enter to draw a new tile: ").strip().upper()
-    if word == '':
-        return
-    if is_valid_word(word):
-        player.add_word(word)
-        for c in word:
-            center_tiles.remove(c)
-        print(f"{word} added to player's word list: {player.get_word_list()}")
-    else:
-        print("Try again.")
+    word = input("\nEnter a word you want to form, or press enter to draw a new tile: ").strip().upper()
+    while not word == '':
+        if is_valid_word(word):
+            player.add_word(word)
+            for c in word:
+                center_tiles.remove(c)
+            print(f"\n{word} added to player's word list: {player.get_word_list()}")
+        else:
+            print("Try again.")
+        word = input(f"\nThe center tiles are: {center_tiles}\nEnter a word you want to form, or press enter to draw a new tile: ").strip().upper()
 
 # Start the game by drawing the initial 3 tiles
 def start_game():
     for _ in range(3):
         center_tiles.append(draw_tile())
 
-start_game()
+if __name__ == "__main__":
+    player = Player(name=input("What's your name? "))
+    start_game()
+    while(tiles):
+        take_turn(player)
 
-while(tiles):
-    take_turn()
-    print("Center tiles after the turn:", center_tiles)
-    print(f"Player's word list: {player.get_word_list()}")
