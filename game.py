@@ -37,7 +37,21 @@ def draw_tile():
 
 # Check if a word is valid
 def is_valid_word(word):
-    return len(word) >= 4 and twl.check(word)
+    temp_center = center_tiles.copy()
+    for c in word:
+        if c in temp_center:
+            temp_center.remove(c)
+        else:
+            print(f"There are not enough copies of '{c}' to form '{word}.'")
+            return False
+    if len(word) >= 4:
+        if TWL06.check(word):
+            return True
+        else:
+            print(f"The word '{word}' is not in our dictionary. Sorry!")
+    else:
+        print(f"The word '{word}' is too short. It must be at least 4 characters long.")
+        return False
 
 # Function to take a turn
 def take_turn():
@@ -47,14 +61,22 @@ def take_turn():
         print(f"New tile '{new_tile}' added to center tiles: {center_tiles}")
     else:
         print("No more tiles to draw.")
-
-    word = input("Enter a word you want to form: ").strip()
-    if form_word(word):
-        print(f"Current player's word list: {player_word_list}")
+    word = input("Enter a word you want to form, or press enter to draw a new tile: ").strip().upper()
+    if word == '':
+        return
+    if is_valid_word(word):
+        player_word_list.append(word)
+        for c in word:
+            center_tiles.remove(c)
+        print(f"{word} added to player's word list: {player_word_list}")
     else:
         print("Try again.")
 
 # Start the game by drawing the initial 3 tiles
+def start_game():
+    for _ in range(3):
+        center_tiles.append(draw_tile())
+
 start_game()
 
 while(tiles):
