@@ -5,6 +5,7 @@ from player import Player
 from itertools import permutations
 from TWL06 import twl 
 
+
 class ComputerPlayer(Player):
     def __init__(self, name):
         super().__init__("Computer")
