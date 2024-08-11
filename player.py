@@ -39,7 +39,7 @@ class Player:
             print(f"\nThe word '{word}' is too short. It must be at least 4 characters long.")
             return False
         
-    def take_turn(self, center_tiles):
+    def take_turn(self, center_tiles, all_words):
         word = input("\nEnter a word you want to form, or press enter to draw a new tile: ").strip().upper()
         while not word == '':
             if self.is_valid_word(word, center_tiles):
@@ -49,4 +49,5 @@ class Player:
                 print(f"\n{word} added to player's word list: {self.get_word_list()}")
             else:
                 print("Try again.")
-            word = input(f"\nThe center tiles are: {center_tiles}\nEnter a word you want to form, or press enter to draw a new tile: ").strip().upper()
+            word = input(f"\nThe center tiles are: {center_tiles}\nEnter a word you want to form,"
+                         " or press enter to draw a new tile: ").strip().upper()

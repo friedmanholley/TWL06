@@ -1,11 +1,12 @@
 import threading
-import time
+#import time
 from player import Player
 from computer_player import ComputerPlayer
 from tiles import Tiles
 
 
 def turn():
+    all_words = computer.get_word_list() + player.get_word_list()
     new_tile = tiles.draw_tile()
     if new_tile:
         print(f"\nNew tile '{new_tile}' added to center tiles: {center_tiles}")
@@ -13,7 +14,21 @@ def turn():
         print("No more tiles to draw.")
     for p in players:
         print(f"\n{p.name}'s word list: {p.word_list}")
-        
+    
+    #threading allows competition between user and computer
+    player_thread = threading.Thread(target=player.take_turn, 
+        args=(center_tiles, all_words))
+    computer_thread = threading.Thread(target=computer.take_turn, 
+        args = (center_tiles, all_words))
+    
+    #start the threads
+    player_thread.start()
+    computer_thread.start()
+    
+    #wait for either thread to finish
+    player_thread.join()
+    computer_thread.join()
+    
 def instructions():
     print(
         "\nAnagrams is a tile-based word game that involves rearranging "
